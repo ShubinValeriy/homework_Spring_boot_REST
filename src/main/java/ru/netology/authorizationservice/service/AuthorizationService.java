@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.netology.authorizationservice.exception.InvalidCredentials;
 import ru.netology.authorizationservice.exception.UnauthorizedUser;
 import ru.netology.authorizationservice.model.Authorities;
+import ru.netology.authorizationservice.model.LogoPass;
 import ru.netology.authorizationservice.repository.AuthRepository;
 
 import java.util.ArrayList;
@@ -37,19 +38,19 @@ public class AuthorizationService {
     }
 
     //For test
-    public boolean addUser(String user, String password){
+    public boolean addUser(String user, String password) {
         List<Authorities> userAuthorities = new ArrayList<>();
         userAuthorities.add(Authorities.READ);
         userAuthorities.add(Authorities.WRITE);
-        return repository.addUser(user,password,userAuthorities);
+        return repository.addUser(user, password, userAuthorities);
     }
 
-    public boolean addAdmin(String user, String password){
+    public boolean addAdmin(String user, String password) {
         List<Authorities> userAuthorities = new ArrayList<>();
         userAuthorities.add(Authorities.READ);
         userAuthorities.add(Authorities.WRITE);
         userAuthorities.add(Authorities.DELETE);
-        return repository.addUser(user,password,userAuthorities);
+        return repository.addUser(user, password, userAuthorities);
     }
 
 }

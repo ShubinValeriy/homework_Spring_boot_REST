@@ -6,22 +6,22 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.netology.authorizationservice.model.Authorities;
 import ru.netology.authorizationservice.service.AuthorizationService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class AuthorizationController {
-   private final AuthorizationService service;
-   public AuthorizationController(AuthorizationService service) {
-        this.service = service;
-   }
+    private final AuthorizationService service;
 
+    public AuthorizationController(AuthorizationService service) {
+        this.service = service;
+    }
 
 
     @GetMapping("/authorize")
     public List<Authorities> getAuthorities(
             @RequestParam("user") String user,
-            @RequestParam("password") String password) {
+            @RequestParam("password") String password
+    ) {
         return service.getAuthorities(user, password);
     }
 
@@ -30,8 +30,9 @@ public class AuthorizationController {
     public boolean addUser(
             @RequestParam("user") String user,
             @RequestParam("password") String password) {
-       return service.addUser(user, password);
+        return service.addUser(user, password);
     }
+
     @GetMapping("/add/admin")
     public boolean addAdmin(
             @RequestParam("user") String user,

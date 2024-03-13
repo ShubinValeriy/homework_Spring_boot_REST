@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
-public class UserRepository implements AuthRepository{
+public class UserRepository implements AuthRepository {
     private final Map<LogoPass, List<Authorities>> userMap;
 
     public UserRepository() {
@@ -19,25 +19,27 @@ public class UserRepository implements AuthRepository{
 
     @Override
     public List<Authorities> getAuthorities(String user, String password) {
-        LogoPass inputLogoPass = new LogoPass(user,password);
-        if (!userMap.containsKey(inputLogoPass)){
+        LogoPass inputLogoPass = new LogoPass(user, password);
+        if (!userMap.containsKey(inputLogoPass)) {
             return null;
         }
         return userMap.get(inputLogoPass);
     }
+
     //For test
     @Override
-    public boolean addUser (String user, String password, List<Authorities> list){
-        if (!userMap.containsKey(new LogoPass(user,password))){
-            userMap.put(new LogoPass(user,password),list);
+    public boolean addUser(String user, String password, List<Authorities> list) {
+        if (!userMap.containsKey(new LogoPass(user, password))) {
+            userMap.put(new LogoPass(user, password), list);
             return true;
         }
         return false;
     }
+
     @Override
-    public boolean addAdmin (String user, String password, List<Authorities> list){
-        if (!userMap.containsKey(new LogoPass(user,password))){
-            userMap.put(new LogoPass(user,password),list);
+    public boolean addAdmin(String user, String password, List<Authorities> list) {
+        if (!userMap.containsKey(new LogoPass(user, password))) {
+            userMap.put(new LogoPass(user, password), list);
             return true;
         }
         return false;
