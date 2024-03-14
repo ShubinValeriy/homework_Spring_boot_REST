@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.netology.authorizationservice.exception.InvalidCredentials;
 import ru.netology.authorizationservice.exception.UnauthorizedUser;
 import ru.netology.authorizationservice.model.Authorities;
+import ru.netology.authorizationservice.model.LogoPass;
 import ru.netology.authorizationservice.repository.AuthRepository;
 
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ public class AuthorizationService {
         this.repository = repository;
     }
 
-    public List<Authorities> getAuthorities(String user, String password) {
+    public List<Authorities> getAuthorities(LogoPass logoPass) {
+        String user = logoPass.getLogin();
+        String password = logoPass.getPassword();
         if (isEmpty(user) || isEmpty(password)) {
             throw new InvalidCredentials("User name or password is empty");
         }
@@ -37,19 +40,27 @@ public class AuthorizationService {
     }
 
     //For test
-    public boolean addUser(String user, String password){
+    public boolean addUser(LogoPass logoPass){
         List<Authorities> userAuthorities = new ArrayList<>();
         userAuthorities.add(Authorities.READ);
         userAuthorities.add(Authorities.WRITE);
-        return repository.addUser(user,password,userAuthorities);
+
+        return repository.addUser(
+                logoPass.getLogin(),
+                logoPass.getPassword(),
+                userAuthorities
+        );
     }
 
-    public boolean addAdmin(String user, String password){
+    public boolean addAdmin(LogoPass logoPass){
         List<Authorities> userAuthorities = new ArrayList<>();
         userAuthorities.add(Authorities.READ);
         userAuthorities.add(Authorities.WRITE);
         userAuthorities.add(Authorities.DELETE);
-        return repository.addUser(user,password,userAuthorities);
+        return repository.addUser(
+                logoPass.getLogin(),
+                logoPass.getPassword(),
+                userAuthorities);
     }
 
 }
