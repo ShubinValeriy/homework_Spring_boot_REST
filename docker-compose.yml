@@ -1,0 +1,10 @@
+version: '1.1'
+
+
+services:
+  app:
+    build: ./
+    image: 'auth_app:1.1'
+    container_name: 'my_auth_app'
+    ports:
+      - '8080:8080'
